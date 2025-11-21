@@ -41,6 +41,11 @@ function mostrarMenu() {
 
 function ingresarProducto() {
   rl.question(chalk.green('Nombre del producto: '), (nombre) => {
+    if (!nombre || nombre.trim() === '') {
+      console.log(chalk.red('Nombre inválido. Intenta de nuevo.\n'));
+      return ingresarProducto(); // vuelve a pedir todo otra vez
+    }
+
     rl.question(chalk.green('Precio base: '), (precio) => {
       try {
         const p = service.registrarProducto(nombre, precio);
@@ -49,13 +54,17 @@ function ingresarProducto() {
         console.log(`- Nombre: ${p.nombre}`);
         console.log(`- Precio base: $${p.precioBase}`);
         console.log(`- Precio final (IVA): $${p.precioFinal.toFixed(2)}`);
+
+        mostrarLista(); 
       } catch (err) {
-        console.log(chalk.red('Error:'), err.message);
+        console.log(chalk.red('Dato inválido:'), err.message);
+        console.log(chalk.red('Vuelve a ingresar el producto.\n'));
+        ingresarProducto(); // vuelve a pedir nombre y precio
       }
-      mostrarMenu();
     });
   });
 }
+// ===========================================
 
 function mostrarLista() {
   const lista = service.listarProductos();
