@@ -1,0 +1,12 @@
+[
+  {
+    "nombre": "Lentes",
+    "precioBase": 5,
+    "precioFinal": 5.75
+  },
+  {
+    "nombre": "celular",
+    "precioBase": 321,
+    "precioFinal": 369.15
+  }
+]
